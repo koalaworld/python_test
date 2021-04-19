@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{url_for('static', filename='scripts/index.js')}}"></script>
+    <title>Alpaca Dating</title>
+</head>
+<style>
+</style>
+<header>
+
+    <button id='age'>
+      {% if sel=='ALL' or sel =='above' %}
+      <a class="switch" href='/below'> 
+            Age <= 25 
+      </a>
+      {% endif %}
+      {% if sel =='below' %}
+      <a class="switch" href='/above'>  
+        Age > 25 
+      </a>
+      {% endif %}
+    </button>
+    <!-- <button id='create'>create</button> -->
+    <h1>Alpaca Dating</h1>
+    <button id='search'>Search</button>
+</header>
+<body>
+   <div class="cards">
+    {% for alpaca in alpacas %}
+    <div class="cards__item">
+
+        <img style="width:100%; height: 60%;" src="{{ url_for('static', filename=alpaca.filename) }}">
+        <!-- <div class="text-content-container"> -->
+            <h2 style="text-align: center;">{{ alpaca.displayName }}</h2>
+            <p>Age :{{ alpaca.age }}</p>
+            <p>Sex :{{ alpaca.sex }}</p>
+            <div style="text-align: center">
+                <button>
+                    <a href='/profile/{{ alpaca.name }}'>
+                        Profile
+                    </a>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br/><br/>
+    <style type="text/css">
+        button {
+            height: 48px;
+            width: 180px;
+            border-radius: 12px;
+            background: black;
+            color: white;
+            box-shadow: 1px 1px grey;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+        .card:hover {
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      }
+      .cards {
+        display: flex;
+
+        /* Put a card in the next row when previous cards take all width */
+        flex-wrap: wrap;
+
+
+    }
+    a.switch{
+        color:white;
+        text-decoration: none;
+    }
+    .cards__item {
+        /* There will be 4 cards per row */
+        flex-basis: 33%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 100%;
+    }
+    .cards__item > img {
+        border-radius: 50%;
+    }
+    header {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-align-content: stretch;
+        -ms-flex-line-pack: stretch;
+        align-content: stretch;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+    }
+</style>
+</body>
+
+<body>
+    </html>

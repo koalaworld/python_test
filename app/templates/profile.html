@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{url_for('static', filename='scripts/profile.js')}}"></script>
+    <title>Alpaca Dating</title>
+</head>
+<style>
+    header {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-align-content: stretch;
+        -ms-flex-line-pack: stretch;
+        align-content: stretch;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+    }
+    button {
+        height: 48px;
+        width: 180px;
+        border-radius: 12px;
+        background: black;
+        color: white;
+        box-shadow: 1px 1px grey;
+    }
+    h1 {
+        font-size: 3em;
+    }
+    .profile-list-container {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-align-content: stretch;
+        -ms-flex-line-pack: stretch;
+        align-content: stretch;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+    }
+    .profile-content-container {
+        width: 100%;
+        height: 400px;
+        border-radius: 12px;
+        position: relative;
+        margin-top: 16px;
+    }
+    .profile-content-container > img {
+        display: block;
+        border-radius: 50%;
+        width: 250px;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 2%;
+        transform: translateY(-50%);
+    }
+    .text-content-container {
+        /* height: 90%; */
+        width: 80%;
+        position: absolute;
+        right: 0px;
+        border-radius: 12px;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: start;
+        justify-content: space-between;
+        -webkit-align-content: stretch;
+        -ms-flex-line-pack: stretch;
+        align-content: stretch;
+        -webkit-align-items: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        top: 30%;
+    }
+    .text-content-container > p {
+        font-size: 1.6em;
+        margin: 0;
+    } 
+    .text-content-container > ul > li {
+        font-size: 1.6em;
+    }
+    .text-content-container > button {
+        margin: 0;
+        box-shadow: 1px 1px darkgray;
+    }
+    a {
+        color: white;
+        text-decoration: none;
+    }
+    header {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-align-content: stretch;
+        -ms-flex-line-pack: stretch;
+        align-content: stretch;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+    }
+    button {
+        height: 48px;
+        width: 180px;
+        border-radius: 12px;
+        background: black;
+        color: white;
+        box-shadow: 1px 1px grey;
+    }
+
+    #inner {
+      width: 50%;
+      margin: 0 auto;
+  }
+  .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button */
+  .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+  }
+  {box-sizing: border-box;}
+
+  /* Button used to open the contact form - fixed at the bottom of the page */
+  .open-button {
+      background-color: #555;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: fixed;
+      bottom: 23px;
+      right: 28px;
+      width: 280px;
+  }
+
+  /* The popup form - hidden by default */
+  .form-popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 15px;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+  }
+
+  /* Add styles to the form container */
+  .form-container {
+      max-width: 300px;
+      padding: 10px;
+      background-color: white;
+  }
+
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+  }
+
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+  }
+
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+  }
+
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+      background-color: red;
+  }
+
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+      opacity: 1;
+  }
+</style>
+<!-- NOTE: add 8 minutes to stopwatch time -->
+<body>
+    <header>
+        <button>
+            <a  href='/'>Home</a>
+        </button>
+        <h1 style="text-align: center">{{ displayName }}</h1>
+        <div>
+        </div>
+        <button onclick="deleteLama()" > 
+            <a href='/'>Delete</a>
+        </button>
+        <script type="text/javascript">
+           
+            class DeleteHTTP {
+              
+                async delete(url) {
+                  
+                    const response = await fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-type': 'application/json'
+                        }
+                    });
+                    
+                    const resData = 'Deleted succesfully';
+                    
+        return resData;
+    }
+}
+function deleteLama(){
+    const http = new DeleteHTTP;
+    
+    http.delete('/Fred/delete')
+
+    .then(data => console.log(data))
+    
+.catch(err => console.log(err));
+
+alert('Deleted succesfully'); 
+
+}
+</script>
+</header>
+<div class="profile-content-container">
+    <img src="{{ url_for('static', filename=filename) }}">
+    <div class="text-content-container">
+        <p style="position: absolute; width: 40%; margin-left: 20px;">Bio : {{ bio }}</p>
+        <ul id="inner" style="margin-left: 60%" ;>
+         <h2>Hobbies:<h2>
+            {% for hobby in hobbies %}
+            <li>
+                {{ hobby }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+</div>
+<header>
+
+    <button id='hello' data-hello="{{ contact }}">
+        Hello
+    </button>
+
+    <button id='create' onclick="openForm()">Create</button>
+    <div class="form-popup" id="myForm">
+      <form action="/profile.html" class="form-container">
+        <h3>Create new</h3>
+        <input type="age" placeholder="Name" name="psw" required>
+
+        <input type="age" placeholder="Age" name="psw" required>
+
+
+        <input type="age" placeholder="bio" name="psw" required>
+        
+        <input type="age" placeholder="hobbies" name="psw" required>
+
+        <input type="age" placeholder="contacts" name="psw" required>
+        
+        <input type="age" placeholder="displayName" name="psw" required>
+        
+        <input type="age" placeholder="sex" name="psw" required>
+        <button type="submit" class="btn">Create</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+    <script>
+        function openForm() {
+          document.getElementById("myForm").style.display = "block";
+      }
+
+      function closeForm() {
+          document.getElementById("myForm").style.display = "none";
+      }
+  </script>
+</div>
+</header>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>{{ contact }}</p>
+</div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("hello");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+}
+}
+</script>
+
+</body>
+</html>
+
